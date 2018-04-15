@@ -34,11 +34,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4013107288365016}
-  - component: {fileID: 33945850331015662}
-  - component: {fileID: 135743978756983630}
-  - component: {fileID: 23510506952372680}
   - component: {fileID: 114779041857384752}
   - component: {fileID: 114627702429781096}
+  - component: {fileID: 54508957762413416}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Player
@@ -153,6 +151,9 @@ GameObject:
   - component: {fileID: 4474584139611470}
   - component: {fileID: 33634946050328722}
   - component: {fileID: 23589935484491786}
+  - component: {fileID: 136354089024336948}
+  - component: {fileID: 136150789851806498}
+  - component: {fileID: 136246320255789138}
   m_Layer: 0
   m_Name: Racer
   m_TagString: Untagged
@@ -345,40 +346,6 @@ Transform:
   m_Father: {fileID: 4709036835129240}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23510506952372680
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1176218773706646}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!23 &23589935484491786
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -420,13 +387,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1866508707224868}
   m_Mesh: {fileID: 4300000, guid: 612a1b9805a1dd347aca98c9b207fd09, type: 3}
---- !u!33 &33945850331015662
-MeshFilter:
+--- !u!54 &54508957762413416
+Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1176218773706646}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  serializedVersion: 2
+  m_Mass: 0.1
+  m_Drag: 2
+  m_AngularDrag: 10
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 84
+  m_CollisionDetection: 0
 --- !u!108 &108656084122905712
 Light:
   m_ObjectHideFlags: 1
@@ -630,26 +605,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6fcaa9d1fb4144c81867dac09c3cb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
-  boostAmount: 20
+  speed: 70
+  boostAmount: 90
+  veloCap: 200
   lookDistance: 0.8
   colliderRadius: 0.5
   trailEffect: {fileID: 198300952547355520}
   secondTrail: {fileID: 198682100723206112}
   defaultSize: 4
   defaultRate: 1.3
---- !u!135 &135743978756983630
-SphereCollider:
+--- !u!136 &136150789851806498
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1176218773706646}
+  m_GameObject: {fileID: 1866508707224868}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Enabled: 1
+  m_Radius: 0.015
+  m_Height: 0.06
+  m_Direction: 2
+  m_Center: {x: -0.022, y: -0.00093953306, z: -0.014379691}
+--- !u!136 &136246320255789138
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1866508707224868}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.015
+  m_Height: 0.06
+  m_Direction: 2
+  m_Center: {x: 0.022, y: -0.00093953306, z: -0.014379691}
+--- !u!136 &136354089024336948
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1866508707224868}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.01
+  m_Height: 0.032
+  m_Direction: 2
+  m_Center: {x: 0, y: -0.00093953306, z: -0.003}
 --- !u!198 &198300952547355520
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -6,8 +6,17 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {
+    public Vector3 Velocity
+    {
+        get
+        {
+            return rb.velocity;
+        }
+    }
+
     [Header("Movement"), SerializeField] float speed = 1f;
     [SerializeField] float boostAmount = 2.5f;
+    [SerializeField] float veloCap = 300f;
     Vector3 velocity;
 
     PlayerInput input;
@@ -60,8 +69,12 @@ public class PlayerController : MonoBehaviour
     {
         if (mode)
         {
-            transform.position += velocity * (speed + input.Boost * boostAmount) * Time.fixedDeltaTime;
-            //rb.velocity = velocity * (speed + input.Boost * boostAmount) * Time.fixedDeltaTime;
+            //transform.position += velocity * (speed + input.Boost * boostAmount) * Time.fixedDeltaTime;
+            if (rb.velocity.magnitude < veloCap)
+            {
+                rb.velocity += velocity * (speed + input.Boost * boostAmount) * Time.fixedDeltaTime;
+            }
+            //rb.AddForce(velocity * (speed + input.Boost * boostAmount) * Time.fixedDeltaTime);
             main.startSizeMultiplier = 8f;
             emission.rateOverDistance = 3f;
             secMain.startSizeMultiplier = 8f;
@@ -69,8 +82,12 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            transform.position += velocity * speed * Time.fixedDeltaTime;
-            //rb.velocity = velocity * speed * Time.fixedDeltaTime;
+            //transform.position += velocity * speed * Time.fixedDeltaTime;
+            if (rb.velocity.magnitude < veloCap * 0.125f)
+            {
+                rb.velocity += velocity * speed * Time.fixedDeltaTime;
+            }
+            //rb.AddForce(velocity * speed * Time.fixedDeltaTime);
             main.startSizeMultiplier = defaultSize;
             emission.rateOverDistance = defaultRate;
             secMain.startSizeMultiplier = defaultSize;
