@@ -347,35 +347,15 @@ Prefab:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 4774159786656022, guid: 89f5be00807548248a3bdb0aefbffdea, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4774159786656022, guid: 89f5be00807548248a3bdb0aefbffdea, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4774159786656022, guid: 89f5be00807548248a3bdb0aefbffdea, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4774159786656022, guid: 89f5be00807548248a3bdb0aefbffdea, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4774159786656022, guid: 89f5be00807548248a3bdb0aefbffdea, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 108917436886246562, guid: 89f5be00807548248a3bdb0aefbffdea,
+    - target: {fileID: 114779041857384752, guid: 89f5be00807548248a3bdb0aefbffdea,
         type: 2}
-      propertyPath: m_Shadows.m_Type
-      value: 1
+      propertyPath: speed
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 114779041857384752, guid: 89f5be00807548248a3bdb0aefbffdea,
         type: 2}
       propertyPath: boostAmount
-      value: 30
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 89f5be00807548248a3bdb0aefbffdea, type: 2}
