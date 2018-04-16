@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33502444265930268}
   - component: {fileID: 23401943983831836}
   - component: {fileID: 114039734284687260}
+  - component: {fileID: 114784239155753248}
   m_Layer: 11
   m_Name: PlayerBolt
   m_TagString: Untagged
@@ -98,3 +99,17 @@ MonoBehaviour:
   collideLayers:
     serializedVersion: 2
     m_Bits: 0
+  explosion: {fileID: 198094869844504852, guid: 303558fdec1bb2847b2e23c0f9285a93,
+    type: 2}
+--- !u!114 &114784239155753248
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1237118392805578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7815174309e9e754e91ec5b8a15f70f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timer: 3
