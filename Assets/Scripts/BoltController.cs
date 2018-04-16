@@ -26,6 +26,7 @@ public class BoltController : MonoBehaviour {
     {
         if(Physics.Raycast(transform.position, transform.forward, 1.4f, collideLayers))
         {
+            // TODO substract health if enemy
             Destroy(gameObject);
         }
     }
