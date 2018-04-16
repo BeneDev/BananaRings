@@ -21,9 +21,8 @@ GameObject:
   - component: {fileID: 4058939378282006}
   - component: {fileID: 33502444265930268}
   - component: {fileID: 23401943983831836}
-  - component: {fileID: 136689852312730428}
   - component: {fileID: 114039734284687260}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: PlayerBolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,17 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636ac3c0d6afc5e4aaf4f4edf7b6c1b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 50
---- !u!136 &136689852312730428
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1237118392805578}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.24
-  m_Height: 2.36
-  m_Direction: 2
-  m_Center: {x: 0, y: 0, z: -2.84}
+  speed: 70
+  collideLayers:
+    serializedVersion: 2
+    m_Bits: 0
