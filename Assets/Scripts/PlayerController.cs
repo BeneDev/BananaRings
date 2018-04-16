@@ -25,6 +25,11 @@ public class PlayerController : MonoBehaviour
     LayerMask obstacles;
     [SerializeField] float colliderRadius = 1f;
 
+    [Header("Shooting"), SerializeField] Transform[] guns;
+    [SerializeField] GameObject bolt;
+    [SerializeField] float shotDelay = 0.5f;
+    float shotCounter = 0f;
+
     Rigidbody rb;
 
     // Attributes of the particle effect
@@ -61,6 +66,10 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         ReadInput();
+        if(shotCounter > 0)
+        {
+            shotCounter -= Time.fixedDeltaTime;
+        }
 
         Thrust(bBoostMode);
     }
@@ -120,6 +129,18 @@ public class PlayerController : MonoBehaviour
         if (input.Horizontal != 0 || input.Vertical != 0)
         {
             transform.forward = velocity;
+        }
+
+        if(input.Shoot)
+        {
+            if(guns.Length > 0 && bolt && shotCounter <= 0f)
+            {
+                foreach (Transform gun in guns)
+                {
+                    Instantiate(bolt, gun.position, gun.rotation);
+                }
+                shotCounter = shotDelay;
+            }
         }
     }
 

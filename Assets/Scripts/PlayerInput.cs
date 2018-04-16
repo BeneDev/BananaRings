@@ -41,4 +41,19 @@ public class PlayerInput : MonoBehaviour, IInput {
         }
     }
 
+    public bool Shoot
+    {
+        get
+        {
+            if (Input.GetAxisRaw("Shoot") == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
 }

@@ -9,5 +9,7 @@ public interface IInput
     float Vertical { get; }
 
     float Boost { get; }
+
+    bool Shoot { get; }
 }
 
