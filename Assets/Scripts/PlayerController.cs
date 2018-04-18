@@ -6,6 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {
+
+    #region Properties
+
     public Vector3 Velocity
     {
         get
@@ -21,6 +24,10 @@ public class PlayerController : MonoBehaviour
             return shootDirection;
         }
     }
+
+    #endregion
+
+    #region Fields
 
     [Header("Movement"), SerializeField] float speed = 1f;
     [SerializeField] float boostAmount = 2.5f;
@@ -54,6 +61,10 @@ public class PlayerController : MonoBehaviour
 
     bool bBoostMode = false;
 
+    #endregion
+
+    #region UnityMessages
+
     private void Awake()
     {
         emission = trailEffect.emission;
@@ -83,6 +94,10 @@ public class PlayerController : MonoBehaviour
 
         Thrust(bBoostMode);
     }
+
+    #endregion
+
+    #region Methods
 
     void Thrust(bool mode)
     {
@@ -161,5 +176,8 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    #endregion
+
 }
 
