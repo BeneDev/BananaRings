@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour {
 
     [SerializeField] float speed = 1f;
     [SerializeField] float expand = 1f;
+    [SerializeField] float veloExpand = 0.35f;
 
 	// Use this for initialization
 	void Start () {
@@ -18,7 +19,8 @@ public class CameraController : MonoBehaviour {
 	void Update () {
         Vector3 newPos = player.transform.position;
         newPos.y = 0f;
-        newPos += player.GetComponent<PlayerController>().Velocity * expand;
+        newPos += player.GetComponent<PlayerController>().ShootDirection * expand;
+        newPos += player.GetComponent<PlayerController>().Velocity * veloExpand;
         transform.position = Vector3.Lerp(transform.position, newPos, speed * Time.deltaTime);
 	}
 }

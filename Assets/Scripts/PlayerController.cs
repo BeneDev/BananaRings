@@ -14,6 +14,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public Vector3 ShootDirection
+    {
+        get
+        {
+            return shootDirection;
+        }
+    }
+
     [Header("Movement"), SerializeField] float speed = 1f;
     [SerializeField] float boostAmount = 2.5f;
     [SerializeField] float veloCap = 300f;
