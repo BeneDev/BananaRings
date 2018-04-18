@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float boostAmount = 2.5f;
     [SerializeField] float veloCap = 300f;
     Vector3 velocity;
+    [SerializeField] float rotationSpeed = 1f;
 
     PlayerInput input;
 
@@ -156,7 +157,11 @@ public class PlayerController : MonoBehaviour
 
         if (input.Horizontal != 0 || input.Vertical != 0)
         {
-            transform.forward = velocity;
+            //transform.forward = velocity;
+            Quaternion targetRotation = new Quaternion();
+            targetRotation.SetLookRotation(velocity); 
+
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
         }
 
         if (input.RightHorizontal != 0 || input.RightVertical != 0 && gunObject)

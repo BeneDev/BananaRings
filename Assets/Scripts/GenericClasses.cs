@@ -21,7 +21,7 @@ public class Generics<T> {
         Debug.LogFormat("Type: {0} | Value: {1}", typeof(T).ToString(), data);
     }
 
-    public T GetComponent<T>() where T : Component
+    public T GetComponent<T, V>() where T : Component where V : MonoBehaviour
     {
         T data;
 

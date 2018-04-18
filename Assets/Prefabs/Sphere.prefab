@@ -1055,6 +1055,7 @@ MonoBehaviour:
   speed: 70
   boostAmount: 90
   veloCap: 200
+  rotationSpeed: 5
   lookDistance: 0.8
   colliderRadius: 0.5
   guns:
