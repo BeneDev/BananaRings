@@ -26,9 +26,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float colliderRadius = 1f;
 
     [Header("Shooting"), SerializeField] Transform[] guns;
+    [SerializeField] GameObject gunObject;
     [SerializeField] GameObject bolt;
     [SerializeField] float shotDelay = 0.5f;
     float shotCounter = 0f;
+    Vector3 shootDirection;
 
     Rigidbody rb;
 
@@ -117,6 +119,9 @@ public class PlayerController : MonoBehaviour
         velocity.x = input.Horizontal;
         velocity.z = input.Vertical;
 
+        shootDirection.x = input.RightHorizontal;
+        shootDirection.z = input.RightVertical;
+
         if (input.Boost > 0f)
         {
             bBoostMode = true;
@@ -131,13 +136,18 @@ public class PlayerController : MonoBehaviour
             transform.forward = velocity;
         }
 
-        if(input.Shoot)
+        if (input.RightHorizontal != 0 || input.RightVertical != 0 && gunObject)
         {
-            if(guns.Length > 0 && bolt && shotCounter <= 0f)
+            gunObject.transform.forward = shootDirection;
+        }
+
+        if (input.Shoot)
+        {
+            if (guns.Length > 0 && bolt && shotCounter <= 0f)
             {
                 foreach (Transform gun in guns)
                 {
-                    Instantiate(bolt, gun.position, gun.rotation);
+                    Instantiate(bolt, gun.position, gunObject.transform.rotation);
                 }
                 shotCounter = shotDelay;
             }

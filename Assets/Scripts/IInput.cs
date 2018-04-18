@@ -11,5 +11,9 @@ public interface IInput
     float Boost { get; }
 
     bool Shoot { get; }
+
+    float RightHorizontal { get; }
+
+    float RightVertical { get; }
 }
 

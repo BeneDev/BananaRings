@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198450932139820896}
   - component: {fileID: 199896672003004780}
   m_Layer: 0
-  m_Name: MainSphere
+  m_Name: Electrode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

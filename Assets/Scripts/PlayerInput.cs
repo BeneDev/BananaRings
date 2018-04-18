@@ -56,4 +56,30 @@ public class PlayerInput : MonoBehaviour, IInput {
         }
     }
 
+    // The input for horizontal movement
+    public float RightHorizontal
+    {
+        get
+        {
+            if (Input.GetAxis("RightHorizontal") >= controllerThreshhold || Input.GetAxis("RightHorizontal") <= -controllerThreshhold)
+            {
+                return Input.GetAxis("RightHorizontal");
+            }
+            return 0f;
+        }
+    }
+
+    // The input for vertical movement
+    public float RightVertical
+    {
+        get
+        {
+            if (Input.GetAxis("RightVertical") >= controllerThreshhold || Input.GetAxis("RightVertical") <= -controllerThreshhold)
+            {
+                return Input.GetAxis("RightVertical");
+            }
+            return 0f;
+        }
+    }
+
 }
