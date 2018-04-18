@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float veloCap = 300f; // How fast the player can possibly go
     Vector3 direction; // Stores the direction, the player wants to move in
     [SerializeField] float rotationSpeed = 1f; // How fast the player can turn
+    [SerializeField] float turretRotationSpeed = 1f;
     
     [Header("Shooting"), SerializeField] Transform[] guns; // The transforms of the different guns to shoot out of
     [SerializeField] GameObject gunObject; // The gun object which gets rotated depending on where the player aims
@@ -179,7 +180,11 @@ public class PlayerController : MonoBehaviour
         // Rotate the guns on the ship depending on the input of the right stick
         if (input.RightHorizontal != 0 || input.RightVertical != 0 && gunObject)
         {
-            gunObject.transform.forward = shootDirection;
+            //gunObject.transform.forward = shootDirection;
+            Quaternion targetRotation = new Quaternion();
+            targetRotation.SetLookRotation(shootDirection);
+
+            gunObject.transform.rotation = Quaternion.Lerp(gunObject.transform.rotation, targetRotation, turretRotationSpeed * Time.fixedDeltaTime);
         }
 
         // Instantiates a bullet when the player shoots
