@@ -161,10 +161,5 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(transform.position, colliderRadius);
-    }
 }
 
