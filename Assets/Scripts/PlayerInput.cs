@@ -10,7 +10,6 @@ public class PlayerInput : MonoBehaviour, IInput {
         get
         {
             return Input.GetAxis("Horizontal");
-            return 0f;
         }
     }
 
@@ -20,7 +19,6 @@ public class PlayerInput : MonoBehaviour, IInput {
         get
         {
             return Input.GetAxis("Vertical");
-            return 0f;
         }
     }
 
@@ -53,7 +51,6 @@ public class PlayerInput : MonoBehaviour, IInput {
         get
         {
             return Input.GetAxis("RightHorizontal");
-            return 0f;
         }
     }
 
@@ -63,7 +60,6 @@ public class PlayerInput : MonoBehaviour, IInput {
         get
         {
             return Input.GetAxis("RightVertical");
-            return 0f;
         }
     }
 
