@@ -4,18 +4,12 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour, IInput {
 
-    // Prevents the controller from reading tiny input, caused by old sticks
-    [Range(0, 1)] [SerializeField] float controllerThreshhold;
-
     // The input for horizontal movement
     public float Horizontal
     {
         get
         {
-            if (Input.GetAxis("Horizontal") >= controllerThreshhold || Input.GetAxis("Horizontal") <= -controllerThreshhold)
-            {
-                return Input.GetAxis("Horizontal");
-            }
+            return Input.GetAxis("Horizontal");
             return 0f;
         }
     }
@@ -25,10 +19,7 @@ public class PlayerInput : MonoBehaviour, IInput {
     {
         get
         {
-            if (Input.GetAxis("Vertical") >= controllerThreshhold || Input.GetAxis("Vertical") <= -controllerThreshhold)
-            {
-                return Input.GetAxis("Vertical");
-            }
+            return Input.GetAxis("Vertical");
             return 0f;
         }
     }
@@ -61,10 +52,7 @@ public class PlayerInput : MonoBehaviour, IInput {
     {
         get
         {
-            if (Input.GetAxis("RightHorizontal") >= controllerThreshhold || Input.GetAxis("RightHorizontal") <= -controllerThreshhold)
-            {
-                return Input.GetAxis("RightHorizontal");
-            }
+            return Input.GetAxis("RightHorizontal");
             return 0f;
         }
     }
@@ -74,10 +62,7 @@ public class PlayerInput : MonoBehaviour, IInput {
     {
         get
         {
-            if (Input.GetAxis("RightVertical") >= controllerThreshhold || Input.GetAxis("RightVertical") <= -controllerThreshhold)
-            {
-                return Input.GetAxis("RightVertical");
-            }
+            return Input.GetAxis("RightVertical");
             return 0f;
         }
     }
