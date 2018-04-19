@@ -68,6 +68,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float defaultSize;
     [SerializeField] float defaultRate;
 
+    // Attributes for Sound
+    [Header("Sound"), SerializeField] AudioSource thrustSound;
+    [Range(0, 1), SerializeField] float thrustVolumeBoost = 1f;
+    [Range(0, 1), SerializeField] float thrustVolumeNoBoost = 0.3f;
+
     #endregion
 
     #region UnityMessages
@@ -113,6 +118,8 @@ public class PlayerController : MonoBehaviour
         // When in boost mode
         if (mode)
         {
+            // Play the thrust sound with a high volume
+            PlaySoundAtVolume(thrustSound, thrustVolumeBoost);
             // Add velocity as long as the velocity Cap is not reached
             if (rb.velocity.magnitude < veloCap)
             {
@@ -124,8 +131,10 @@ public class PlayerController : MonoBehaviour
             secMain.startSizeMultiplier = 8f;
             secEmission.rateOverDistance = 3f;
         }
-        else
+        else if(direction.x != 0 || direction.z != 0)
         {
+            // Play the thrust sound with a low volume
+            PlaySoundAtVolume(thrustSound, thrustVolumeNoBoost);
             // Add velocity as long as the velocity Cap is not reached
             if (rb.velocity.magnitude < veloCap * 0.125f)
             {
@@ -137,6 +146,10 @@ public class PlayerController : MonoBehaviour
             secMain.startSizeMultiplier = defaultSize;
             secEmission.rateOverDistance = defaultRate;
         }
+        else
+        {
+            thrustSound.Stop();
+        }
     }
 
     // Set the rotation of the trail particle effect
@@ -145,6 +158,18 @@ public class PlayerController : MonoBehaviour
         Quaternion trailRotation = Quaternion.LookRotation(-transform.forward);
         secondTrail.transform.rotation = trailRotation;
         trailEffect.transform.rotation = trailRotation;
+    }
+
+    private void PlaySoundAtVolume(AudioSource source, float volume)
+    {
+        if (source)
+        {
+            source.volume = volume;
+            if (!source.isPlaying)
+            {
+                source.Play();
+            }
+        }
     }
 
     // Handles the input to manipulate the player.
