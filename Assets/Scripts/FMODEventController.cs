@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// FMOD works for every Platform, except WebGL
+/// </summary>
 public class FMODEventController : MonoBehaviour {
 
     private string eventRef;
