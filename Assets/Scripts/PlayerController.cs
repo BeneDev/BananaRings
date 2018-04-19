@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour
         if (mode)
         {
             // Play the thrust sound with a high volume
-            PlaySoundAtVolume(thrustSound, thrustVolumeBoost);
+            StartCoroutine(FadeTo(thrustSound, thrustVolumeBoost, 0.3f));
             // Add velocity as long as the velocity Cap is not reached
             if (rb.velocity.magnitude < veloCap)
             {
@@ -134,7 +134,7 @@ public class PlayerController : MonoBehaviour
         else if(direction.x != 0 || direction.z != 0)
         {
             // Play the thrust sound with a low volume
-            PlaySoundAtVolume(thrustSound, thrustVolumeNoBoost);
+            StartCoroutine(FadeTo(thrustSound, thrustVolumeNoBoost, 0.3f));
             // Add velocity as long as the velocity Cap is not reached
             if (rb.velocity.magnitude < veloCap * 0.125f)
             {
@@ -148,7 +148,11 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            thrustSound.Stop();
+            // Fade out
+            if (thrustSound.volume > 0)
+            {
+                StartCoroutine(FadeTo(thrustSound, 0f, 1f));
+            }
         }
     }
 
@@ -160,6 +164,7 @@ public class PlayerController : MonoBehaviour
         trailEffect.transform.rotation = trailRotation;
     }
 
+    // Play the given sound at the given volume
     private void PlaySoundAtVolume(AudioSource source, float volume)
     {
         if (source)
@@ -167,9 +172,24 @@ public class PlayerController : MonoBehaviour
             source.volume = volume;
             if (!source.isPlaying)
             {
+                // Fade In
                 source.Play();
             }
         }
+    }
+
+    // Fades the sound to the given target volume in the given duration
+    private IEnumerator FadeTo(AudioSource source, float targetVolume, float duration)
+    {
+        float currentVolume = source.volume;
+
+        for(float t = 0; t < duration; t += Time.deltaTime)
+        {
+            source.volume = Mathf.Lerp(currentVolume, targetVolume, t / duration);
+            yield return new WaitForEndOfFrame();
+        }
+
+        source.volume = targetVolume;
     }
 
     // Handles the input to manipulate the player.
