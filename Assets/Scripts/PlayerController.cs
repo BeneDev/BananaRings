@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
     // Components attached to the player
     PlayerInput input;
     Rigidbody rb;
+    Camera cam;
 
     // Boolean Fields
     bool bBoostMode = false;
@@ -88,6 +89,7 @@ public class PlayerController : MonoBehaviour
         // Get the player components needed.
         input = GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody>();
+        cam = Camera.main;
     }
     
     void Update()
@@ -120,6 +122,7 @@ public class PlayerController : MonoBehaviour
         {
             // Play the thrust sound with a high volume
             StartCoroutine(FadeTo(thrustSound, thrustVolumeBoost, 0.3f));
+            cam.GetComponent<CameraShake>().shakeDuration = 0.5f;
             // Add velocity as long as the velocity Cap is not reached
             if (rb.velocity.magnitude < veloCap)
             {
