@@ -907,6 +907,26 @@ Prefab:
       propertyPath: controllerThreshhold
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 198948608949861552, guid: 0b23716b984936e40a05177b4af9b7c8,
+        type: 2}
+      propertyPath: ShapeModule.alignToDirection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198948608949861552, guid: 0b23716b984936e40a05177b4af9b7c8,
+        type: 2}
+      propertyPath: randomSeed
+      value: -281181978
+      objectReference: {fileID: 0}
+    - target: {fileID: 198954753338376372, guid: 0b23716b984936e40a05177b4af9b7c8,
+        type: 2}
+      propertyPath: ShapeModule.alignToDirection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198954753338376372, guid: 0b23716b984936e40a05177b4af9b7c8,
+        type: 2}
+      propertyPath: randomSeed
+      value: 878816543
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0b23716b984936e40a05177b4af9b7c8, type: 2}
   m_IsPrefabParent: 0

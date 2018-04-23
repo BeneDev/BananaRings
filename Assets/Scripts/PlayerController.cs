@@ -243,6 +243,7 @@ public class PlayerController : MonoBehaviour
                 foreach (Transform gun in guns)
                 {
                     Instantiate(bolt, gun.position, gunObject.transform.rotation);
+                    cam.GetComponent<CameraShake>().shakeDuration = 0.2f;
                 }
                 shotCounter = shotCooldown;
             }
