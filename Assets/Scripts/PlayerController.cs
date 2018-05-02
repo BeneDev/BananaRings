@@ -115,14 +115,13 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        ReadInput();
-
         // Shoot if the cooldown is worn off
         if (shotCounter > 0)
         {
             shotCounter -= Time.fixedDeltaTime;
         }
         ManageGravity();
+        ReadInput();
         Thrust(bBoostMode);
     }
 
@@ -238,7 +237,7 @@ public class PlayerController : MonoBehaviour
             Quaternion targetRotation = new Quaternion();
             targetRotation.SetLookRotation(direction); 
 
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
         }
 
         // Rotate the guns on the ship depending on the input of the right stick
