@@ -18,7 +18,6 @@ public class CameraController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Vector3 newPos = player.transform.position;
-        newPos.y = 0f;
         newPos += player.GetComponent<PlayerController>().ShootDirection * expand;
         newPos += player.GetComponent<PlayerController>().Velocity * veloExpand;
         transform.position = Vector3.Lerp(transform.position, newPos, speed * Time.deltaTime);

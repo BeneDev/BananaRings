@@ -49,7 +49,12 @@ public class PlayerController : MonoBehaviour
     Vector3 direction; // Stores the direction, the player wants to move in
     [SerializeField] float rotationSpeed = 1f; // How fast the player can turn
     [SerializeField] float turretRotationSpeed = 1f;
-    
+
+    [Header("Physics"), SerializeField] float gravity = 1f;
+    [SerializeField] float gravityCap = 10f;
+    [SerializeField] float hoverDistance = 1f;
+
+
     [Header("Shooting"), SerializeField] Transform[] guns; // The transforms of the different guns to shoot out of
     [SerializeField] GameObject gunObject; // The gun object which gets rotated depending on where the player aims
     [SerializeField] GameObject bolt; // The object which gets shot
@@ -68,6 +73,10 @@ public class PlayerController : MonoBehaviour
     // TODO get the default size from the particle system itself
     [SerializeField] float defaultSize;
     [SerializeField] float defaultRate;
+
+    RaycastHit groundRay;
+
+    public LayerMask groundLayer;
 
     // Attributes for Sound
     [Header("Sound"), SerializeField] AudioSource thrustSound;
@@ -90,6 +99,10 @@ public class PlayerController : MonoBehaviour
         input = GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody>();
         cam = Camera.main;
+
+        // Create the ground layer mask
+        int layer = LayerMask.NameToLayer("Ground");
+        groundLayer = 1 << layer;
     }
     
     void Update()
@@ -99,15 +112,36 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Physics.Raycast(transform.position + Vector3.down * 2f, Vector3.down, out groundRay, 10f, groundLayer);
         ReadInput();
 
         // Shoot if the cooldown is worn off
-        if(shotCounter > 0)
+        if (shotCounter > 0)
         {
             shotCounter -= Time.fixedDeltaTime;
         }
 
         Thrust(bBoostMode);
+        ManageGravity();
+    }
+
+    private void ManageGravity()
+    {
+        if (groundRay.distance > hoverDistance)
+        {
+            if (rb.velocity.y < gravityCap)
+            {
+                rb.velocity += Vector3.down * gravity * Time.fixedDeltaTime;
+            }
+        }
+        else if (groundRay.distance < hoverDistance)
+        {
+            rb.velocity += Vector3.up * Time.fixedDeltaTime;
+        }
+        else
+        {
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        }
     }
 
     #endregion
@@ -248,6 +282,11 @@ public class PlayerController : MonoBehaviour
                 shotCounter = shotCooldown;
             }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawRay(transform.position + Vector3.down * 0.5f, Vector3.down * 10f);
     }
 
     #endregion
