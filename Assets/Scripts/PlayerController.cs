@@ -132,8 +132,8 @@ public class PlayerController : MonoBehaviour
         {
             toPlanet = groundRay.collider.gameObject.transform.position - transform.position;
             Vector3 newForward = toPlanet;
-            newForward.x += 90f;
             transform.forward = newForward;
+            transform.Rotate(-90f, 0f, 0f);
             if (groundRay.distance > hoverDistance)
             {
                 if (rb.velocity.y < gravityCap)
