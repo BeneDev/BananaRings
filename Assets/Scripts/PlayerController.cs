@@ -53,7 +53,14 @@ public class PlayerController : MonoBehaviour
     [Header("Physics"), SerializeField] float gravity = 1f;
     [SerializeField] float gravityCap = 10f;
     [SerializeField] float hoverDistance = 1f;
+    [SerializeField] float upwardsVeloCap = 0.002f;
 
+    Vector3 velocity;
+
+    RaycastHit groundRay;
+    Vector3 toPlanet;
+
+    LayerMask groundLayer;
 
     [Header("Shooting"), SerializeField] Transform[] guns; // The transforms of the different guns to shoot out of
     [SerializeField] GameObject gunObject; // The gun object which gets rotated depending on where the player aims
@@ -73,11 +80,6 @@ public class PlayerController : MonoBehaviour
     // TODO get the default size from the particle system itself
     [SerializeField] float defaultSize;
     [SerializeField] float defaultRate;
-
-    RaycastHit groundRay;
-    Vector3 toPlanet;
-
-    public LayerMask groundLayer;
 
     // Attributes for Sound
     [Header("Sound"), SerializeField] AudioSource thrustSound;
@@ -113,7 +115,6 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Physics.Raycast(transform.position + new Vector3(0f, -0.5f, 2.5f), Vector3.down, out groundRay, 10f, groundLayer);
         ReadInput();
 
         // Shoot if the cooldown is worn off
@@ -121,35 +122,8 @@ public class PlayerController : MonoBehaviour
         {
             shotCounter -= Time.fixedDeltaTime;
         }
-
-        Thrust(bBoostMode);
         ManageGravity();
-    }
-
-    private void ManageGravity()
-    {
-        if (groundRay.collider != null)
-        {
-            toPlanet = groundRay.collider.gameObject.transform.position - transform.position;
-            Vector3 newForward = toPlanet;
-            transform.forward = newForward;
-            transform.Rotate(-90f, 0f, 0f);
-            if (groundRay.distance > hoverDistance)
-            {
-                if (rb.velocity.y < gravityCap)
-                {
-                    rb.velocity += toPlanet.normalized * gravity * Time.fixedDeltaTime;
-                }
-            }
-            else if (groundRay.distance < hoverDistance)
-            {
-                rb.velocity += -toPlanet.normalized * Time.fixedDeltaTime;
-            }
-            else
-            {
-                rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-            }
-        }
+        Thrust(bBoostMode);
     }
 
     #endregion
@@ -290,6 +264,56 @@ public class PlayerController : MonoBehaviour
                 shotCounter = shotCooldown;
             }
         }
+    }
+
+    private void ManageGravity()
+    {
+        Physics.Raycast(transform.position + new Vector3(0f, -0.5f, 2.5f), Vector3.down, out groundRay, 100f, groundLayer);
+        print(groundRay.distance);
+        Quaternion newRot = Quaternion.FromToRotation(Vector3.up, groundRay.normal);
+        newRot.y = transform.rotation.y;
+        transform.rotation = newRot;
+        if(groundRay.collider != null)
+        {
+            if(groundRay.distance > hoverDistance + 1)
+            {
+                if (velocity.y < gravityCap)
+                {
+                    velocity += toPlanet.normalized * gravity * Time.fixedDeltaTime;
+                }
+            }
+            else if(groundRay.distance < hoverDistance -1)
+            {
+                if (velocity.y < upwardsVeloCap)
+                {
+                    velocity += -toPlanet.normalized * Time.fixedDeltaTime;
+                }
+            }
+        }
+        //if (groundRay.collider != null)
+        //{
+        //    toPlanet = groundRay.collider.gameObject.transform.position - transform.position;
+        //    transform.forward = toPlanet;
+        //    print(groundRay.distance);
+        //    if (groundRay.distance > hoverDistance + 1) // + groundRay.collider.gameObject.GetComponent<SphereCollider>().radius)
+        //    {
+        //        if (velocity.y < gravityCap)
+        //        {
+        //            velocity += toPlanet.normalized * gravity * Time.fixedDeltaTime;
+        //        }
+        //    }
+        //    else if (groundRay.distance < hoverDistance - 1) // + groundRay.collider.gameObject.GetComponent<SphereCollider>().radius)
+        //    {
+        //        if (velocity.y < upwardsVeloCap)
+        //        {
+        //            velocity += -toPlanet.normalized * Time.fixedDeltaTime;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        velocity = new Vector3(0f, 0f, 0f);
+        //    }
+        //}
     }
 
     private void OnDrawGizmos()
