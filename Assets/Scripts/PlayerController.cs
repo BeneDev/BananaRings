@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float defaultRate;
 
     RaycastHit groundRay;
+    Vector3 toPlanet;
 
     public LayerMask groundLayer;
 
@@ -112,7 +113,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Physics.Raycast(transform.position + Vector3.down * 2f, Vector3.down, out groundRay, 10f, groundLayer);
+        Physics.Raycast(transform.position + new Vector3(0f, -0.5f, 2.5f), Vector3.down, out groundRay, 10f, groundLayer);
         ReadInput();
 
         // Shoot if the cooldown is worn off
@@ -127,20 +128,27 @@ public class PlayerController : MonoBehaviour
 
     private void ManageGravity()
     {
-        if (groundRay.distance > hoverDistance)
+        if (groundRay.collider != null)
         {
-            if (rb.velocity.y < gravityCap)
+            toPlanet = groundRay.collider.gameObject.transform.position - transform.position;
+            Vector3 newForward = toPlanet;
+            newForward.x += 90f;
+            transform.forward = newForward;
+            if (groundRay.distance > hoverDistance)
             {
-                rb.velocity += Vector3.down * gravity * Time.fixedDeltaTime;
+                if (rb.velocity.y < gravityCap)
+                {
+                    rb.velocity += toPlanet.normalized * gravity * Time.fixedDeltaTime;
+                }
             }
-        }
-        else if (groundRay.distance < hoverDistance)
-        {
-            rb.velocity += Vector3.up * Time.fixedDeltaTime;
-        }
-        else
-        {
-            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+            else if (groundRay.distance < hoverDistance)
+            {
+                rb.velocity += -toPlanet.normalized * Time.fixedDeltaTime;
+            }
+            else
+            {
+                rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+            }
         }
     }
 
@@ -286,7 +294,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawRay(transform.position + Vector3.down * 0.5f, Vector3.down * 10f);
+        Gizmos.DrawRay(transform.position + new Vector3(0f, -0.5f, 2.5f), Vector3.down * 10f);
     }
 
     #endregion
