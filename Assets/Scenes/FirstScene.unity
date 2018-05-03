@@ -38,12 +38,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.16561832, g: 0.19463475, b: 0.22239827, a: 1}
+  m_IndirectSpecularColor: {r: 0.16561842, g: 0.1946351, b: 0.22239862, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -89,7 +89,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000002, guid: 0062ff3c09b1f35438c85d4d303a9891,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -255,6 +256,26 @@ Prefab:
     - target: {fileID: 4963355404106940, guid: 24b80d44e0dd79a4599fa65c162de1aa, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114992113990246746, guid: 24b80d44e0dd79a4599fa65c162de1aa,
+        type: 2}
+      propertyPath: gravity
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114992113990246746, guid: 24b80d44e0dd79a4599fa65c162de1aa,
+        type: 2}
+      propertyPath: gravityCap
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114992113990246746, guid: 24b80d44e0dd79a4599fa65c162de1aa,
+        type: 2}
+      propertyPath: hoverDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114992113990246746, guid: 24b80d44e0dd79a4599fa65c162de1aa,
+        type: 2}
+      propertyPath: veloCap
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 24b80d44e0dd79a4599fa65c162de1aa, type: 2}

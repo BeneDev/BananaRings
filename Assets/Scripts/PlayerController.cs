@@ -123,6 +123,7 @@ public class PlayerController : MonoBehaviour
         ManageGravity();
         ReadInput();
         Thrust(bBoostMode);
+        transform.position += velocity;
     }
 
     #endregion
@@ -267,8 +268,8 @@ public class PlayerController : MonoBehaviour
 
     private void ManageGravity()
     {
-        Physics.Raycast(transform.position + new Vector3(0f, -0.5f, 2.5f), Vector3.down, out groundRay, 100f, groundLayer);
-        print(groundRay.distance);
+        Physics.Raycast(transform.position + new Vector3(0f, -0.5f, 2.5f), -transform.up, out groundRay, 1000f, groundLayer);
+        toPlanet = groundRay.collider.gameObject.transform.position - transform.position;
         Quaternion newRot = Quaternion.FromToRotation(Vector3.up, groundRay.normal);
         newRot.y = transform.rotation.y;
         transform.rotation = newRot;

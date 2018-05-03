@@ -1809,13 +1809,10 @@ MonoBehaviour:
   veloCap: 200
   rotationSpeed: 5
   turretRotationSpeed: 10
-  gravity: 1
+  gravity: 2
   gravityCap: 10
   hoverDistance: 1
   upwardsVeloCap: 0.002
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 0
   guns:
   - {fileID: 4234710252761020}
   - {fileID: 4983902846609486}
