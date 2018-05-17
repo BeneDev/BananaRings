@@ -138,32 +138,21 @@ public class PlayerController : MonoBehaviour
         {
             // Play the thrust sound with a high volume
             StartCoroutine(FadeTo(thrustSound, thrustVolumeBoost, 0.3f));
+            //TODO make the boostAmount control the volume of the thrust sound
+            print(boostAmount);
+            thrustSound.volume = boostAmount / 2;
             cam.GetComponent<CameraShake>().shakeDuration = 0.5f;
+            //TODO make the force apply only forwards, to prevent exiting the orbit (control direction relative to the planet
             // Add velocity as long as the velocity Cap is not reached
             if (rb.velocity.magnitude < veloCap)
             {
-                rb.velocity += direction * (speed + input.Boost * boostAmount) * Time.fixedDeltaTime;
+                rb.velocity += transform.forward * (speed + input.Boost * boostAmount) * Time.fixedDeltaTime;
             }
             // Set the trail particle effects to emit bigger particles faster
             main.startSizeMultiplier = 8f;
             emission.rateOverDistance = 3f;
             secMain.startSizeMultiplier = 8f;
             secEmission.rateOverDistance = 3f;
-        }
-        else if(direction.x != 0 || direction.z != 0)
-        {
-            // Play the thrust sound with a low volume
-            StartCoroutine(FadeTo(thrustSound, thrustVolumeNoBoost, 0.3f));
-            // Add velocity as long as the velocity Cap is not reached
-            if (rb.velocity.magnitude < veloCap * 0.125f)
-            {
-                rb.velocity += direction * speed * Time.fixedDeltaTime;
-            }
-            // Set the trail particle effect values back to the default ones
-            main.startSizeMultiplier = defaultSize;
-            emission.rateOverDistance = defaultRate;
-            secMain.startSizeMultiplier = defaultSize;
-            secEmission.rateOverDistance = defaultRate;
         }
         else
         {
