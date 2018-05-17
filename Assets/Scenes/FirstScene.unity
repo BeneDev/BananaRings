@@ -260,7 +260,7 @@ Prefab:
     - target: {fileID: 114992113990246746, guid: 24b80d44e0dd79a4599fa65c162de1aa,
         type: 2}
       propertyPath: gravity
-      value: 0.5
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 114992113990246746, guid: 24b80d44e0dd79a4599fa65c162de1aa,
         type: 2}
@@ -270,14 +270,35 @@ Prefab:
     - target: {fileID: 114992113990246746, guid: 24b80d44e0dd79a4599fa65c162de1aa,
         type: 2}
       propertyPath: hoverDistance
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114992113990246746, guid: 24b80d44e0dd79a4599fa65c162de1aa,
         type: 2}
       propertyPath: veloCap
-      value: 50
+      value: 0.2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114992113990246746, guid: 24b80d44e0dd79a4599fa65c162de1aa,
+        type: 2}
+      propertyPath: speed
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114992113990246746, guid: 24b80d44e0dd79a4599fa65c162de1aa,
+        type: 2}
+      propertyPath: boostAmount
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114992113990246746, guid: 24b80d44e0dd79a4599fa65c162de1aa,
+        type: 2}
+      propertyPath: upwardsVelocity
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114992113990246746, guid: 24b80d44e0dd79a4599fa65c162de1aa,
+        type: 2}
+      propertyPath: upwardsVeloCap
+      value: 0.002
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 54766271963578000, guid: 24b80d44e0dd79a4599fa65c162de1aa, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 24b80d44e0dd79a4599fa65c162de1aa, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &776027310

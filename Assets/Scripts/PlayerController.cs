@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     {
         get
         {
-            return rb.velocity;
+            return velocity;
         }
     }
 
@@ -37,7 +37,6 @@ public class PlayerController : MonoBehaviour
 
     // Components attached to the player
     PlayerInput input;
-    Rigidbody rb;
     Camera cam;
 
     // Boolean Fields
@@ -53,6 +52,7 @@ public class PlayerController : MonoBehaviour
     [Header("Physics"), SerializeField] float gravity = 1f;
     [SerializeField] float gravityCap = 10f;
     [SerializeField] float hoverDistance = 1f;
+    [SerializeField] float upwardsVelocity = 1f;
     [SerializeField] float upwardsVeloCap = 0.002f;
 
     Vector3 velocity;
@@ -100,7 +100,6 @@ public class PlayerController : MonoBehaviour
 
         // Get the player components needed.
         input = GetComponent<PlayerInput>();
-        rb = GetComponent<Rigidbody>();
         cam = Camera.main;
 
         // Create the ground layer mask
@@ -139,14 +138,13 @@ public class PlayerController : MonoBehaviour
             // Play the thrust sound with a high volume
             StartCoroutine(FadeTo(thrustSound, thrustVolumeBoost, 0.3f));
             //TODO make the boostAmount control the volume of the thrust sound
-            print(boostAmount);
             thrustSound.volume = boostAmount / 2;
             cam.GetComponent<CameraShake>().shakeDuration = 0.5f;
             //TODO make the force apply only forwards, to prevent exiting the orbit (control direction relative to the planet
             // Add velocity as long as the velocity Cap is not reached
-            if (rb.velocity.magnitude < veloCap)
+            if (velocity.magnitude < veloCap)
             {
-                rb.velocity += transform.forward * (speed + input.Boost * boostAmount) * Time.fixedDeltaTime;
+                velocity += transform.forward * (speed + input.Boost * boostAmount) * Time.fixedDeltaTime;
             }
             // Set the trail particle effects to emit bigger particles faster
             main.startSizeMultiplier = 8f;
@@ -262,22 +260,37 @@ public class PlayerController : MonoBehaviour
         Quaternion newRot = Quaternion.FromToRotation(Vector3.up, groundRay.normal);
         newRot.y = transform.rotation.y;
         transform.rotation = newRot;
+        // TODO make the gravity always apply as well as the upwards velocity
         if(groundRay.collider != null)
         {
-            if(groundRay.distance > hoverDistance + 1)
+            // Apply the gravity
+            if (velocity.y < gravityCap)
             {
-                if (velocity.y < gravityCap)
-                {
-                    velocity += toPlanet.normalized * gravity * Time.fixedDeltaTime;
-                }
+                velocity += toPlanet.normalized * gravity * Time.fixedDeltaTime;
             }
-            else if(groundRay.distance < hoverDistance -1)
+            // Apply the upwards velocity
+            if (groundRay.distance < hoverDistance)
             {
                 if (velocity.y < upwardsVeloCap)
                 {
-                    velocity += -toPlanet.normalized * Time.fixedDeltaTime;
+                    print("fly up now");
+                    velocity += -toPlanet.normalized * (5f - groundRay.distance) *  upwardsVelocity * Time.fixedDeltaTime;
                 }
             }
+            //if(groundRay.distance > hoverDistance + 0.5f)
+            //{
+            //    if (velocity.y < gravityCap)
+            //    {
+            //        velocity += toPlanet.normalized * gravity * Time.fixedDeltaTime;
+            //    }
+            //}
+            //else if(groundRay.distance < hoverDistance -0.5f)
+            //{
+            //    if (velocity.y < upwardsVeloCap)
+            //    {
+            //        velocity += -toPlanet.normalized * Time.fixedDeltaTime;
+            //    }
+            //}
         }
         //if (groundRay.collider != null)
         //{
