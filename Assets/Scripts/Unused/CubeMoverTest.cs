@@ -14,8 +14,9 @@ public class CubeMoverTest : MonoBehaviour {
 
     #region Fields
 
-    [SerializeField] float acceleration;
+    [Header("Physics"), SerializeField] float acceleration;
     [SerializeField] float veloCap = 1f;
+    [SerializeField] float drag = 1f;
     Vector3 velocity;
 
     PlayerInput input;
@@ -48,8 +49,8 @@ public class CubeMoverTest : MonoBehaviour {
         //{
         //    rb.AddRelativeForce(velocity * acceleration * Time.fixedDeltaTime);
         //}
-        transform.Translate(velocity * acceleration * Time.fixedDeltaTime, Space.Self);
-        //transform.localPosition += velocity * acceleration * Time.fixedDeltaTime;
+        //transform.Translate(velocity * acceleration * Time.fixedDeltaTime, Space.Self);
+        transform.localPosition += velocity * acceleration * Time.fixedDeltaTime;
     }
 
     #endregion
@@ -62,13 +63,14 @@ public class CubeMoverTest : MonoBehaviour {
         {
             // Get the direction of the left stick
             velocity.x += input.Horizontal;
-            velocity.y += input.Vertical;
+            velocity.z += input.Vertical;
         }
-        else
-        {
-            velocity.x *= 0.7f;
-            velocity.y *= 0.7f;
-        }
+        //else
+        //{
+        //    velocity.x *= 0.7f;
+        //    velocity.z *= 0.7f;
+        //}
+        velocity = velocity * (1 - Time.fixedDeltaTime * drag);
 
         // Rotate the player smoothly, depending on the velocity
         if (input.Horizontal != 0 || input.Vertical != 0)

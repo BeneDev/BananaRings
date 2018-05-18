@@ -189,7 +189,6 @@ GameObject:
   - component: {fileID: 1193063508}
   - component: {fileID: 1193063509}
   - component: {fileID: 1193063510}
-  - component: {fileID: 1193063507}
   m_Layer: 0
   m_Name: TestContainer
   m_TagString: Player
@@ -211,21 +210,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!54 &1193063507
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1193063505}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 2
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &1193063508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,8 +221,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01d1a7151fafe534b83b21c378293186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 1.31
-  veloCap: 12.1
+  acceleration: 0.5
+  veloCap: 21.02
+  drag: 1
 --- !u!114 &1193063509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,9 +250,6 @@ MonoBehaviour:
   gravityCap: 10
   hoverDistance: 1
   upwardsVeloCap: 0.002
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1 &1214517736
 GameObject:
   m_ObjectHideFlags: 0

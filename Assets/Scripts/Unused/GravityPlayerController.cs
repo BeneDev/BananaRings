@@ -28,7 +28,7 @@ public class GravityPlayerController : MonoBehaviour {
     RaycastHit groundRay;
     Vector3 toPlanet;
 
-    public LayerMask groundLayer;
+    LayerMask groundLayer;
 
     #endregion
 
