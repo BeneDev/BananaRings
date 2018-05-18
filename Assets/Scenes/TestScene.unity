@@ -221,9 +221,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01d1a7151fafe534b83b21c378293186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 0.1
-  veloCap: 11.85
-  drag: 1
+  acceleration: 1.2
+  veloCap: 6.09
+  drag: 4.66
 --- !u!114 &1193063509
 MonoBehaviour:
   m_ObjectHideFlags: 0

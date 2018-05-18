@@ -61,14 +61,20 @@ public class CubeMoverTest : MonoBehaviour {
         //velocity = transform.InverseTransformDirection(velocity);
         //velocity = Camera.main.transform.TransformVector(velocity);
         // Get the direction of the left stick
-        direction.x += input.Horizontal;
-        direction.z += input.Vertical;
-        if (velocity < veloCap && direction != Vector3.zero)
+
+
+
+
+        direction.x = input.Horizontal;
+        direction.z = input.Vertical;
+        if (velocity < veloCap)
         {
-            velocity += acceleration;
+            velocity += acceleration * direction.magnitude;
+            print(direction.magnitude);
         }
         velocity = velocity * (1 - Time.fixedDeltaTime * drag);
         transform.position += transform.up * velocity * Time.fixedDeltaTime;
+        //transform.position += transform.up * acceleration * Time.fixedDeltaTime;
 
     }
 
