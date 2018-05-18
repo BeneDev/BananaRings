@@ -28,6 +28,8 @@ public class GravityPlayerController : MonoBehaviour {
     RaycastHit groundRay;
     Vector3 toPlanet;
 
+    CubeMoverTest playerController;
+
     LayerMask groundLayer;
 
     #endregion
@@ -39,6 +41,8 @@ public class GravityPlayerController : MonoBehaviour {
         // Create the ground layer mask
         int layer = LayerMask.NameToLayer("Ground");
         groundLayer = 1 << layer;
+
+        playerController = GetComponent<CubeMoverTest>();
     }
 
     void Start()
@@ -67,15 +71,18 @@ public class GravityPlayerController : MonoBehaviour {
         if (groundRay.collider != null)
         {
             toPlanet = groundRay.collider.gameObject.transform.position - transform.position;
-            transform.forward = toPlanet;
-            if (groundRay.distance > hoverDistance +1) // + groundRay.collider.gameObject.GetComponent<SphereCollider>().radius)
+            //transform.forward = toPlanet;
+            Quaternion lookRotation = new Quaternion();
+            lookRotation.SetLookRotation(toPlanet, playerController.Direction);
+            transform.rotation = lookRotation;
+            if (groundRay.distance > hoverDistance +1)
             {
                 if (velocity.y < gravityCap)
                 {
                     velocity += toPlanet.normalized * gravity * Time.fixedDeltaTime;
                 }
             }
-            else if (groundRay.distance < hoverDistance -1) // + groundRay.collider.gameObject.GetComponent<SphereCollider>().radius)
+            else if (groundRay.distance < hoverDistance -1)
             {
                 if (velocity.y < upwardsVeloCap)
                 {
@@ -84,7 +91,7 @@ public class GravityPlayerController : MonoBehaviour {
             }
             else
             {
-                velocity = new Vector3(0f, 0f, 0f);
+                velocity = Vector3.zero;
             }
         }
     }

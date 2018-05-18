@@ -8,7 +8,13 @@ public class CubeMoverTest : MonoBehaviour {
 
     #region Properties
 
-
+    public Vector3 Direction
+    {
+        get
+        {
+            return direction;
+        }
+    }
 
     #endregion
 
@@ -18,6 +24,8 @@ public class CubeMoverTest : MonoBehaviour {
     [SerializeField] float veloCap = 1f;
     [SerializeField] float drag = 1f;
     Vector3 velocity;
+
+    Vector3 direction;
 
     PlayerInput input;
     Rigidbody rb;
@@ -50,7 +58,10 @@ public class CubeMoverTest : MonoBehaviour {
         //    rb.AddRelativeForce(velocity * acceleration * Time.fixedDeltaTime);
         //}
         //transform.Translate(velocity * acceleration * Time.fixedDeltaTime, Space.Self);
-        transform.localPosition += velocity * acceleration * Time.fixedDeltaTime;
+        //velocity = transform.InverseTransformDirection(velocity);
+        //velocity = Camera.main.transform.TransformVector(velocity);
+        transform.position += velocity * Time.fixedDeltaTime;
+
     }
 
     #endregion
@@ -62,14 +73,11 @@ public class CubeMoverTest : MonoBehaviour {
         if (velocity.magnitude < veloCap)
         {
             // Get the direction of the left stick
-            velocity.x += input.Horizontal;
-            velocity.z += input.Vertical;
+            direction.x += input.Horizontal;
+            direction.z += input.Vertical;
+            velocity = direction * acceleration;
         }
-        //else
-        //{
-        //    velocity.x *= 0.7f;
-        //    velocity.z *= 0.7f;
-        //}
+        // Subtract the drag from the velocity
         velocity = velocity * (1 - Time.fixedDeltaTime * drag);
 
         // Rotate the player smoothly, depending on the velocity
@@ -78,7 +86,10 @@ public class CubeMoverTest : MonoBehaviour {
             Quaternion targetRotation = new Quaternion();
             targetRotation.SetLookRotation(velocity);
 
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 1 * Time.fixedDeltaTime);
+            print("Rotate");
+            transform.rotation.SetFromToRotation(transform.forward, velocity.normalized);
+
+            //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 1 * Time.fixedDeltaTime);
         }
 
     }
