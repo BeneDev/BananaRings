@@ -23,7 +23,7 @@ public class CubeMoverTest : MonoBehaviour {
     [Header("Physics"), SerializeField] float acceleration;
     [SerializeField] float veloCap = 1f;
     [SerializeField] float drag = 1f;
-    Vector3 velocity;
+    float velocity;
 
     Vector3 direction;
 
@@ -52,7 +52,7 @@ public class CubeMoverTest : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        ReadInput();
+        //ReadInput();
         //if (rb.velocity.magnitude < veloCap)
         //{
         //    rb.AddRelativeForce(velocity * acceleration * Time.fixedDeltaTime);
@@ -60,7 +60,15 @@ public class CubeMoverTest : MonoBehaviour {
         //transform.Translate(velocity * acceleration * Time.fixedDeltaTime, Space.Self);
         //velocity = transform.InverseTransformDirection(velocity);
         //velocity = Camera.main.transform.TransformVector(velocity);
-        transform.position += velocity * Time.fixedDeltaTime;
+        // Get the direction of the left stick
+        direction.x += input.Horizontal;
+        direction.z += input.Vertical;
+        if (velocity < veloCap && direction != Vector3.zero)
+        {
+            velocity += acceleration;
+        }
+        velocity = velocity * (1 - Time.fixedDeltaTime * drag);
+        transform.position += transform.up * velocity * Time.fixedDeltaTime;
 
     }
 
@@ -70,27 +78,27 @@ public class CubeMoverTest : MonoBehaviour {
 
     void ReadInput()
     {
-        if (velocity.magnitude < veloCap)
-        {
-            // Get the direction of the left stick
-            direction.x += input.Horizontal;
-            direction.z += input.Vertical;
-            velocity = direction * acceleration;
-        }
+        //if (velocity.magnitude < veloCap)
+        //{
+        //    // Get the direction of the left stick
+        //    direction.x += input.Horizontal;
+        //    direction.z += input.Vertical;
+        //    velocity = direction * acceleration;
+        //}
         // Subtract the drag from the velocity
-        velocity = velocity * (1 - Time.fixedDeltaTime * drag);
+        //velocity = velocity * (1 - Time.fixedDeltaTime * drag);
 
         // Rotate the player smoothly, depending on the velocity
-        if (input.Horizontal != 0 || input.Vertical != 0)
-        {
-            Quaternion targetRotation = new Quaternion();
-            targetRotation.SetLookRotation(velocity);
+        //if (input.Horizontal != 0 || input.Vertical != 0)
+        //{
+        //    Quaternion targetRotation = new Quaternion();
+        //    targetRotation.SetLookRotation(velocity);
 
-            print("Rotate");
-            transform.rotation.SetFromToRotation(transform.forward, velocity.normalized);
+        //    print("Rotate");
+        //    transform.rotation.SetFromToRotation(transform.forward, velocity.normalized);
 
-            //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 1 * Time.fixedDeltaTime);
-        }
+        //    //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 1 * Time.fixedDeltaTime);
+        //}
 
     }
 
